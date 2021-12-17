@@ -1,0 +1,19 @@
+package com.pizzahut.dao;
+
+import java.sql.Connection;
+
+import com.pizzahut.model.Admin;
+import com.pizzahut.model.User;
+
+public class Admindao {
+		public static  Admin validateadmin()
+		{
+			ConnectionUtill con=new ConnectionUtill();
+			Connection c=con.getDbconnection();
+			String query="select * from admins where admin_email='"+mail+"' and password='"+pass+"'";
+
+			return null;
+		
+	}
+
+}

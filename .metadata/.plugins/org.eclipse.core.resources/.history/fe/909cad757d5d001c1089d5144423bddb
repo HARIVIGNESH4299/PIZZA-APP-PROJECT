@@ -1,0 +1,56 @@
+package com.pizzahut.dao;
+
+import java.beans.Statement;
+import java.sql.Connection;  
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+
+import com.pizzahut.model.User;
+public class Userdao {
+	
+	public static void insert(User users) {
+		ConnectionUtill con=new ConnectionUtill();
+		String query="insert into users(user_name,phonenumber,email,address,password)values(?,?,?,?,?)";
+			Connection c=con.getDbconnection();
+			PreparedStatement pstmt = null;
+			try {
+				pstmt = c.prepareStatement(query);
+				pstmt.setString(1, users.getUsername());
+				pstmt.setLong(2, users.getPhonenumber());
+				pstmt.setString(3, users.getEmail());
+				pstmt.setString(4, users.getAddress());
+				pstmt.setString(5, users.getPassword());
+				int i=pstmt.executeUpdate();
+				System.out.println(i+" row inserted");
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+				System.out.println("Value not Setted in the query");
+
+			}
+
+			public User validateUser(String email)
+			{
+				String validateQuery="select * from users where email"+email;
+				Connection con=ConnectionUtil.getDbConnection();
+				User user=null;
+				try {
+					Statement stmt=con.createStatement();
+					ResultSet rs=stmt.executeQuery(validateQuery);
+					if(rs.next())
+					{
+					//System.out.println(rs.getString(2)+"  "+rs.getLong(3));
+					user=new User();
+					}
+
+				} catch (SQLException e) {
+				// TODO Auto-generated catch block
+					e.printStackTrace();
+					System.out.println("Statement error");
+				}
+
+				return user;
+			
+}
+}

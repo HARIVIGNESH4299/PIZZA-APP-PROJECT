@@ -38,6 +38,8 @@ price int not null );
 
 insert into products(product_name,product_size,price)values('tomato','large',60);
 
+commit;
+
 select * from products;
 
 drop table products CASCADE CONSTRAINTS;

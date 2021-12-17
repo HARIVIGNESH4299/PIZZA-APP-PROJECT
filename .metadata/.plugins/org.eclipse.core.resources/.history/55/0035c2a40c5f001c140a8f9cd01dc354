@@ -1,0 +1,10 @@
+package com.pizzahut.dao;
+
+import com.pizzahut.model.User;
+
+public class Admindao {
+	public static void main(String[] args) {
+		
+	}
+
+}
