@@ -12,9 +12,7 @@ select * from users;
 
 select users.user_name from users where address='channei';
 
-DELETE FROM users WHERE user_id=104;
-
-drop table users CASCADE CONSTRAINTS;
+drop table products CASCADE CONSTRAINTS;
 
 --admins table
 create table admins(
@@ -27,20 +25,26 @@ COMMIT;
 
 select * from admins;
 
+
 drop table admins CASCADE CONSTRAINTS;
 
 --products table
 create table products
 (product_id int GENERATED ALWAYS AS IDENTITY START WITH 501 primary key,
-product_name varchar2(32) not null,
+product_name varchar2(32) unique,
 product_size varchar2(32) not null,
 price int not null );  
 
 insert into products(product_name,product_size,price)values('tomato','large',60);
 
+insert into products(product_name,product_size,price)values('onion','small',60);
+
 commit;
+select *from products;
+desc products;
 
 select * from products;
+
 
 drop table products CASCADE CONSTRAINTS;
 
@@ -68,13 +72,15 @@ order_date date not null,
 FOREIGN key(user_id) REFERENCES users(user_id),
 foreign key(product_id) references products(product_id));
 
+drop table orders;
+
 select * from orders;
 
 --cart
 create table cart(cart_id int GENERATED ALWAYS AS IDENTITY START WITH 7001 primary key,
 user_id int,
-quantity int not null,
 product_id int not null,
+quantity int not null,
 FOREIGN key (product_id) REFERENCES products(product_id),
 FOREIGN key(user_id) REFERENCES users(user_id)); 
 
@@ -105,6 +111,11 @@ order_id int,
 FOREIGN key(user_id) REFERENCES users(user_id),
 FOREIGN key (product_id) REFERENCES products(product_id),
 FOREIGN key(order_id) REFERENCES orders(order_id)); 
-select * from bill;
+select * from bills;
 
 drop table bills CASCADE CONSTRAINTS;
+
+
+
+
+sir i filled the timesheet then i check the timesheet status report 17 dec ,20 dec ,21 dec shows not filled

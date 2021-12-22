@@ -1,0 +1,2 @@
+System.out.println("enter the user name");
+		 username=scan.nextLine();

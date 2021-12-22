@@ -1,0 +1,8 @@
+package com.pizzahut.model;
+
+public class Order {
+		private User userid;
+		private Product productid;
+		private int quantity;
+		
+}

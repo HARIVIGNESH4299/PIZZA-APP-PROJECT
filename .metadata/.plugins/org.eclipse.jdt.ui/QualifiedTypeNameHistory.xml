@@ -7,13 +7,16 @@
     <fullyQualifiedTypeName name="com.pizzahut.model.User"/>
     <fullyQualifiedTypeName name="java.lang.Double"/>
     <fullyQualifiedTypeName name="com.pizzahut.dao.Userdao"/>
-    <fullyQualifiedTypeName name="java.util.ArrayList"/>
     <fullyQualifiedTypeName name="java.sql.ResultSet"/>
     <fullyQualifiedTypeName name="com.pizzahut.dao.Productdao"/>
-    <fullyQualifiedTypeName name="java.util.List"/>
-    <fullyQualifiedTypeName name="com.pizzahut.model.Product"/>
     <fullyQualifiedTypeName name="com.pizzahut.model.Admin"/>
     <fullyQualifiedTypeName name="com.pizzahut.dao.Admindao"/>
     <fullyQualifiedTypeName name="java.beans.Statement"/>
     <fullyQualifiedTypeName name="java.sql.PreparedStatement"/>
+    <fullyQualifiedTypeName name="com.pizzahut.model.Product"/>
+    <fullyQualifiedTypeName name="java.util.List"/>
+    <fullyQualifiedTypeName name="java.util.ArrayList"/>
+    <fullyQualifiedTypeName name="java.lang.System"/>
+    <fullyQualifiedTypeName name="java.sql.Date"/>
+    <fullyQualifiedTypeName name="com.pizzahut.model.Order"/>
 </qualifiedTypeNameHistroy>
