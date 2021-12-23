@@ -1,0 +1,15 @@
+package com.pizzahut.dao;
+
+import java.sql.Connection;
+
+import com.pizzahut.model.Order;
+
+public class Orderdao {
+	
+	public void orderproduct(Order orders) {
+		ConnectionUtill con=new ConnectionUtill();
+			Connection c=con.getDbconnection();
+			String query="insert into orders()values(?,?,?)";
+
+	}
+}

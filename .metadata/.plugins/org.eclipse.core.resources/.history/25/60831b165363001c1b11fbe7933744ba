@@ -1,0 +1,29 @@
+package com.pizzahut.dao;
+
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.SQLException;
+
+import com.pizzahut.model.Order;
+
+public class Orderdao {
+	
+	public void orderproduct(Order orders) {
+		ConnectionUtill con=new ConnectionUtill();
+			Connection c=con.getDbconnection();
+			String query="insert into orders(user_id,product_id,quantity,total_price,order_date)values(?,?,?,?,?)";
+			try {
+				PreparedStatement pstmt=c.prepareStatement(query);
+				Userdao userdao=new Userdao();
+				int userid=userdao.finduserid(orders.getUser());
+				Productdao productdao=new Productdao();
+				int proId=productdao.findProductId(orders.getProduct());
+				
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			
+			
+	}
+}
