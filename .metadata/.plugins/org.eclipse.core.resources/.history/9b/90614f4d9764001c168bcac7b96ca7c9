@@ -1,0 +1,8 @@
+package com.pizzahut.model;
+
+public class Cart {
+	private User user;
+	private Product product;
+	private Order order;
+	
+}

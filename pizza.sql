@@ -35,7 +35,7 @@ product_name varchar2(32) unique,
 product_size varchar2(32) not null,
 price int not null );  
 
-insert into products(product_name,product_size,price)values('tomato','large',60);
+insert into products(product_name,product_size,price)values('tomato','small',60);
 
 insert into products(product_name,product_size,price)values('onion','small',60);
 
@@ -48,7 +48,7 @@ select * from products;
 
 drop table products CASCADE CONSTRAINTS;
 
-drop table orders CASCADE CONSTRAINTS;
+drop table users CASCADE CONSTRAINTS;
 
 ----order_items table
 --create table orders_items
@@ -79,8 +79,9 @@ select * from orders;
 --cart
 create table cart(cart_id int GENERATED ALWAYS AS IDENTITY START WITH 7001 primary key,
 user_id int,
-product_id int not null,
+product_id int ,
 quantity int not null,
+total_prize int not null,
 FOREIGN key (product_id) REFERENCES products(product_id),
 FOREIGN key(user_id) REFERENCES users(user_id)); 
 
@@ -104,8 +105,6 @@ insert into employees values('hari','harivignesh4299@gmail.com',9994578532,'Vick
 --invoice bill
 create table bills(bill_id int GENERATED ALWAYS AS IDENTITY START WITH 5001 primary key,
 user_id int ,product_id int,
-quantity int not null,
-total_amount int not null,
 purchase_date date not null,
 order_id int,
 FOREIGN key(user_id) REFERENCES users(user_id),

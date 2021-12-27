@@ -1,0 +1,36 @@
+package com.pizzahut.dao;
+
+import java.sql.Connection;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
+import java.util.ArrayList;
+import java.util.List;
+
+import com.pizzahut.model.Invoicebill;
+import com.pizzahut.model.Order;
+
+public class Invoicebilldao {
+		
+	public List<Invoicebill> showbill(){
+		List<Invoicebill> billlist=new ArrayList<Invoicebill>();
+		ConnectionUtill con = new ConnectionUtill();
+		Connection c = con.getDbconnection();
+		String query="select * from bills";
+		
+		try {
+			Statement stmt = c.createStatement();
+			Invoicebill bill=new Invoicebill();
+			ResultSet rs = stmt.executeQuery(query);
+			Orderdao orderdao = new Orderdao();
+			while (rs.next()) {
+				Order order=orderdao.findid(rs.getInt(1));
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+
+		return null;
+	}
+}

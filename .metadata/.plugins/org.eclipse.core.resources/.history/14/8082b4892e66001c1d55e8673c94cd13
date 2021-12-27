@@ -1,0 +1,57 @@
+package com.pizzahut.model;
+
+import java.util.Objects;
+
+public class Invoicebill {
+	private Order order;
+	private Product product;
+	private User user;
+	public Order getOrder() {
+		return order;
+	}
+	public void setOrder(Order order) {
+		this.order = order;
+	}
+	public Product getProduct() {
+		return product;
+	}
+	public void setProduct(Product product) {
+		this.product = product;
+	}
+	public User getUser() {
+		return user;
+	}
+	public void setUser(User user) {
+		this.user = user;
+	}
+	public Invoicebill(Order order, Product product, User user) {
+		super();
+		this.order = order;
+		this.product = product;
+		this.user = user;
+	}
+	public Invoicebill() {
+		super();
+		// TODO Auto-generated constructor stub
+	}
+	@Override
+	public int hashCode() {
+		return Objects.hash(order, product, user);
+	}
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		Invoicebill other = (Invoicebill) obj;
+		return Objects.equals(order, other.order) && Objects.equals(product, other.product)
+				&& Objects.equals(user, other.user);
+	}
+	@Override
+	public String toString() {
+		return "Invoicebill [order=" + order + ", product=" + product + ", user=" + user + "]";
+	}
+}

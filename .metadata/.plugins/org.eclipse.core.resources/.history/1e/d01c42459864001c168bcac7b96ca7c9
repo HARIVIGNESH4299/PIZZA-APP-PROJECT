@@ -1,0 +1,21 @@
+package com.pizzahut.dao;
+
+import java.beans.Statement;
+import java.sql.Connection;
+import java.util.ArrayList;
+import java.util.List;
+
+import com.pizzahut.model.Cart;
+import com.pizzahut.model.Order;
+
+public class Cartdao {
+public List<Cart> showcart(){
+	List<Cart> cartList = new ArrayList<Cart>();
+	String query="select * from cart";
+	ConnectionUtill con = new ConnectionUtill();
+	Connection c = con.getDbconnection();
+	Statement stmt=c.createStatement(query);
+	
+	return cartList;
+}
+}

@@ -11,15 +11,19 @@
     <fullyQualifiedTypeName name="com.pizzahut.model.Admin"/>
     <fullyQualifiedTypeName name="com.pizzahut.dao.Admindao"/>
     <fullyQualifiedTypeName name="com.pizzahut.model.Product"/>
-    <fullyQualifiedTypeName name="java.util.List"/>
-    <fullyQualifiedTypeName name="java.util.ArrayList"/>
     <fullyQualifiedTypeName name="java.lang.System"/>
     <fullyQualifiedTypeName name="java.sql.Date"/>
-    <fullyQualifiedTypeName name="java.beans.Statement"/>
-    <fullyQualifiedTypeName name="java.sql.PreparedStatement"/>
     <fullyQualifiedTypeName name="java.util.Date"/>
     <fullyQualifiedTypeName name="java.text.SimpleDateFormat"/>
-    <fullyQualifiedTypeName name="com.pizzahut.model.Order"/>
     <fullyQualifiedTypeName name="com.pizzahut.dao.Orderdao"/>
     <fullyQualifiedTypeName name="com.pizzahut.model.User"/>
+    <fullyQualifiedTypeName name="java.beans.Statement"/>
+    <fullyQualifiedTypeName name="java.sql.PreparedStatement"/>
+    <fullyQualifiedTypeName name="com.pizzahut.dao.Cartdao"/>
+    <fullyQualifiedTypeName name="com.pizzahut.model.Cart"/>
+    <fullyQualifiedTypeName name="java.util.List"/>
+    <fullyQualifiedTypeName name="java.util.ArrayList"/>
+    <fullyQualifiedTypeName name="com.pizzahut.model.Order"/>
+    <fullyQualifiedTypeName name="com.pizzahut.model.Invoicebill"/>
+    <fullyQualifiedTypeName name="com.pizzahut.dao.Invoicebilldao"/>
 </qualifiedTypeNameHistroy>

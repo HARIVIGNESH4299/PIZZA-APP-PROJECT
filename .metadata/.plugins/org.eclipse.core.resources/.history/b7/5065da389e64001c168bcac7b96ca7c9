@@ -1,0 +1,10 @@
+package com.pizzahut.model;
+
+import java.util.Objects;
+
+public class Cart {
+	private User user;
+	private Product product;
+	
+	
+}
