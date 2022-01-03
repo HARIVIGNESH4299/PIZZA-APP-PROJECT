@@ -10,6 +10,8 @@ create table users
 
 select * from users;
 
+delete from users where user_id=63;
+
 select users.user_name from users where address='channei';
 
 drop table products CASCADE CONSTRAINTS;
@@ -21,10 +23,10 @@ admin_name varchar2(32) not null,
 password varchar2(12) not null);
 
 insert into admins values('harivignesh@ghmail.com','hari','hari@123');
+
 COMMIT;
 
 select * from admins;
-
 
 drop table admins CASCADE CONSTRAINTS;
 
@@ -33,18 +35,17 @@ create table products
 (product_id int GENERATED ALWAYS AS IDENTITY START WITH 501 primary key,
 product_name varchar2(32) unique,
 product_size varchar2(32) not null,
-price int not null );  
+price int not null);  
 
-insert into products(product_name,product_size,price)values('tomato','small',60);
+insert into products(product_name,product_size,price)values('cheese','big',120);
 
-insert into products(product_name,product_size,price)values('onion','small',60);
+insert into products(product_name,product_size,price)values('corn','big',120);
 
 commit;
 select *from products;
 desc products;
 
 select * from products;
-
 
 drop table products CASCADE CONSTRAINTS;
 
@@ -79,7 +80,7 @@ select * from orders;
 --cart
 create table cart(cart_id int GENERATED ALWAYS AS IDENTITY START WITH 7001 primary key,
 user_id int,
-product_id int ,
+product_id int,
 quantity int not null,
 total_prize int not null,
 FOREIGN key (product_id) REFERENCES products(product_id),
@@ -112,5 +113,5 @@ FOREIGN key (product_id) REFERENCES products(product_id),
 FOREIGN key(order_id) REFERENCES orders(order_id)); 
 select * from bills;
 
-drop table bills CASCADE CONSTRAINTS;
+drop table cart CASCADE CONSTRAINTS;
 
