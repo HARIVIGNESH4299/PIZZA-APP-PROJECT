@@ -1,4 +1,4 @@
-package com.Dao;
+package com.pizza.dao;
 
 import java.sql.Connection;
 import java.sql.ResultSet;
@@ -7,13 +7,14 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.Interface.Invoicebillinterface;
-import com.model.Invoicebill;
-import com.model.Order;
-import com.model.User;
+import com.pizza.Interface.InvoicebillDao;
+import com.pizza.model.Invoicebill;
+import com.pizza.model.Order;
+import com.pizza.model.User;
 //import com.dao.ConnectionUtill;
+import com.pizza.utill.ConnectionUtill;
 
-public class Invoicebilldao implements Invoicebillinterface{
+public class InvoicebillDaoImpl implements InvoicebillDao{
 		
 	public ResultSet showBill(User user) {
 		

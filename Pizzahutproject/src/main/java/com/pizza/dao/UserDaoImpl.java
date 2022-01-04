@@ -1,4 +1,4 @@
-package com.Dao;
+package com.pizza.dao;
 
 import java.sql.Statement;
 
@@ -9,11 +9,12 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
-import com.Interface.Userinterface;
-import com.model.User;
+import com.pizza.Interface.UserDao;
+import com.pizza.model.User;
+import com.pizza.utill.ConnectionUtill;
 //import com.pizzahut.dao.ConnectionUtill;
 //import com.pizzahut.model.Product;
-public class Userdao implements  Userinterface{	
+public class UserDaoImpl implements  UserDao{	
 	public  void  insert(User users) {
 		ConnectionUtill con=new ConnectionUtill();
 		String query="insert into users(user_name,phonenumber,email,address,password)values(?,?,?,?,?)";
@@ -35,8 +36,7 @@ public class Userdao implements  Userinterface{
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 				System.out.println("Value not Setted in the query");
-			}
-//			return i;
+			}		
 	} 
 	
 	public  double update(Double wallet,String useremail) {
@@ -67,17 +67,17 @@ public class Userdao implements  Userinterface{
 	}
 	
 
-	public   User validateUser(String emailid,String password1) {
+	public   User validateUser(String email,String password) {
 		ConnectionUtill con=new ConnectionUtill();
 		Connection c=con.getDbconnection();
-		String query="select * from users where email='"+emailid+"' and password='"+password1+"'";
+		String query="select * from users where email='"+email+"' and password='"+password+"'";
 		User user=null;
 		try {
 			Statement stmt=c.createStatement();
 			ResultSet rs=stmt.executeQuery(query);
 			if(rs.next())
 			{	
-			user=new User(rs.getString(2),rs.getLong(3), emailid,rs.getString(5),rs.getDouble(6),password1);
+			user=new User(rs.getString(2),rs.getLong(3), email,rs.getString(5),rs.getDouble(6),password);
 			}
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
@@ -100,12 +100,14 @@ public class Userdao implements  Userinterface{
 			ResultSet rs=pstmt.executeQuery();
 			while(rs.next()) {
 				userid=rs.getInt(1);
+				return userid;
 			}	
 		} catch (SQLException e1) {
 			// TODO Auto-generated catch block
 			e1.printStackTrace();
-		}	
-		return userid;
+		}
+		return userid;	
+		
 	}
 	
 	public  User finduser(String useremail) {

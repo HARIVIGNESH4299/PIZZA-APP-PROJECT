@@ -1,8 +1,8 @@
-package com.model;
+package com.pizza.model;
 
 import java.util.Objects;
 
-import com.model.Order;
+import com.pizza.model.Order;
 
 public class Invoicebill {
 	private Order order;

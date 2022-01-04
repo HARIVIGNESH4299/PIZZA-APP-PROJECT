@@ -1,9 +1,9 @@
-package com.model;
+package com.pizza.model;
 
 import java.util.Date;
 import java.util.Objects;
 
-import com.model.Product;
+import com.pizza.model.Product;
 
 public class Order {
 		private User user;

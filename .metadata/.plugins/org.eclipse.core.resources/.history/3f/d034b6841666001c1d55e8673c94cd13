@@ -1,8 +1,0 @@
-package com.pizzahut.model;
-
-public class Invoicebill {
-	private Order order;
-	
-	
-
-}

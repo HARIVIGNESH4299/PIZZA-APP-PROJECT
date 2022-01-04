@@ -1,4 +1,4 @@
-package com.Dao;
+package com.pizza.dao;
 
 import java.sql.Statement;
 import java.sql.Connection;
@@ -6,11 +6,12 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
-import com.Interface.Admininterface;
-import com.model.Admin;
-import com.model.Product;
+import com.pizza.Interface.AdminDao;
+import com.pizza.model.Admin;
+import com.pizza.model.Product;
+import com.pizza.utill.ConnectionUtill;
 
-public class Admindao implements Admininterface{
+public class AdminDaoImpl implements AdminDao{
 	
 		public   Admin validateadmin(String email1, String pass)
 		{
@@ -32,4 +33,3 @@ public class Admindao implements Admininterface{
 			return admin;
 		}
 	}
-

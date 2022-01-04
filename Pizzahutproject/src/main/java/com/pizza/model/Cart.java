@@ -1,8 +1,8 @@
-package com.model;
+package com.pizza.model;
 
 import java.util.Objects;
 
-import com.model.Product;
+import com.pizza.model.Product;
 
 public class Cart {
 	private User user;

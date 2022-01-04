@@ -12,13 +12,12 @@
         <input type="text" name="phonenumber" placeholder="phonenumber" required><br><br>
         
          <label for="ADDRESS">ADDRESS :</label> 
-        <input type="text" name="address" placeholder="password" required><br><br>
+        <input type="text" name="address" placeholder="address" required><br><br>
         
         <label for="PASSWORD">PASSWORD :</label> 
         <input type="password" name="password" placeholder="password" required><br><br>
         
-       <a href="login.jsp"> <button type="submit">SUBMIT</button></a>
-
+        <button type="submit">SUBMIT</button> 
 </form>
 </body>
 </html>

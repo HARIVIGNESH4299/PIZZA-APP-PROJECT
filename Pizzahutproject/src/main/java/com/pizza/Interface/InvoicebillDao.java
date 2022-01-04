@@ -1,10 +1,10 @@
-package com.Interface;
+package com.pizza.Interface;
 
 import java.sql.ResultSet;
 
-import com.model.User;
+import com.pizza.model.User;
 
-public interface Invoicebillinterface {
+public interface InvoicebillDao {
 
-	public ResultSet showBill(User user) ;
+public ResultSet showBill(User user) ;
 }

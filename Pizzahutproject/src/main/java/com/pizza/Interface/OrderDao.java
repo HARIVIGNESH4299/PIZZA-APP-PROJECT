@@ -1,10 +1,10 @@
-package com.Interface;
+package com.pizza.Interface;
 
 import java.util.List;
 
-import com.model.Order;
+import com.pizza.model.Order;
 
-public interface Orderinterface {
+public interface OrderDao {
 
 	public List<Order> showorder();
 	public int orderproduct(Order orders);

@@ -1,13 +1,22 @@
-package com.model;
+package com.pizza.model;
 
+import java.sql.Date;
 import java.util.Objects;
 
 public class Product {
+	
+	private int productId;
 	private String productname;
 	private String size;
 	private Double price;
 	
 
+	public int getProductId() {
+		return productId;
+	}
+	public void setProductId(int productId) {
+		this.productId = productId;
+	}
 	public String getProductname() {
 		return productname;
 	}
@@ -34,6 +43,10 @@ public class Product {
 		this.price = price;
 	}
 	
+	public Product(int proid) {
+		// TODO Auto-generated constructor stub
+		this.productId=proid;
+	}
 	@Override
 	public String toString() {
 		return " [productname=" + productname + ", size=" + size + ", price=" + price + "]";
@@ -42,6 +55,8 @@ public class Product {
 	public int hashCode() {
 		return Objects.hash(price, productname, size);
 	}
+	
+
 	@Override
 	public boolean equals(Object obj) {
 		if (this == obj)

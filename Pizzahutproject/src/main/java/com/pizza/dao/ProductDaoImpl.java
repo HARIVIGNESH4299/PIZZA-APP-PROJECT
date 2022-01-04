@@ -1,4 +1,4 @@
-package com.Dao;
+package com.pizza.dao;
 
 import java.sql.Statement;
 import java.sql.Connection;
@@ -8,55 +8,83 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.Interface.Productinterface;
-import com.model.Admin;
-import com.model.Product;
-import com.model.User;
+import com.pizza.Interface.ProductDao;
+import com.pizza.model.Admin;
+import com.pizza.model.Product;
+import com.pizza.model.User;
 //import com.dao.ConnectionUtill;
+import com.pizza.utill.ConnectionUtill;
 
-public class Productdao implements Productinterface{
+public class ProductDaoImpl implements ProductDao{
 
 	public List<Product> showProduct() {
 		List<Product> productsList = new ArrayList<Product>();
 		String prod = "select * from products";
+
 		ConnectionUtill con = new ConnectionUtill();
 		Connection c = con.getDbconnection();
 		Product products = null;
 		try {
+			System.out.println("list of product");
 			Statement stmt = c.createStatement();
 			ResultSet rs = stmt.executeQuery(prod);
-//			Product product=new Product(productname, , null);
-//			Productdao productdao=new Productdao();
-//			int product=Productdao.findProductId(products);
+		//	System.out.println(rs.getString(2));
 			while (rs.next()) {
 				products = new Product(rs.getString(2), rs.getString(3), Double.parseDouble(rs.getString(4)));
-				productsList.add(products);				
+				
+				productsList.add(products);	
+				System.out.println(products);
 			}
 		} catch (SQLException e) {
+			System.out.println("error on query");
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		return productsList;
+		return productsList;	
 	}
+	
 	public  int insertproduct(Product products) {
 		ConnectionUtill con = new ConnectionUtill();
 		String query = "insert into products(product_name,product_size,price)values(?,?,?)";
 		Connection c = con.getDbconnection();
 		PreparedStatement pstmt = null;
+		int i =0;
 		try {
 			pstmt = c.prepareStatement(query);
 			pstmt.setString(1, products.getProductname());
 			pstmt.setString(2, products.getSize());
 			pstmt.setDouble(3, products.getPrice());
-			int i = pstmt.executeUpdate();
+			i= pstmt.executeUpdate();
 			System.out.println(i + " row inserted");
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 			System.out.println("Value not Setted in the query");
 		}
-		return 0;
+		return i;
 	}
+	
+	
+//	public List<Product> ShowProduct(int productID) {
+//			List<Product> productsList = new ArrayList<Product>();
+//			String showQuery = "select * from products where product_id='"+productID+"'";
+//			ConnectionUtill con = new ConnectionUtill();
+//			Connection c = con.getDbconnection();
+//			Product products=null;
+//			try {
+//				Statement stmt = c.createStatement();
+//				ResultSet rs = stmt.executeQuery(showQuery);
+//				while (rs.next()) {
+//					products = new Product(rs.getInt(1),rs.getString(2), rs.getString(3), Double.parseDouble(rs.getString(4)));
+//					productsList.add(products);
+//				}
+//			} catch (SQLException e) {
+//				// TODO Auto-generated catch block
+//				e.printStackTrace();
+//			}
+//			return productsList;			
+//		}
+
 	
 	public  int updated(String productname, String size,Double price,int productid) {
 		ConnectionUtill con = new ConnectionUtill();
@@ -100,6 +128,7 @@ public class Productdao implements Productinterface{
 	}
 	return prod1d;
 }
+	
 	public  int findProductId(Product product) {
 		String query="select product_id from products where product_name=? and product_size=? ";
 		ConnectionUtill con = new ConnectionUtill();
@@ -141,6 +170,7 @@ public class Productdao implements Productinterface{
 		}
 		return product2;
 	}
+	
 	public Product findid(int id) {
 		ConnectionUtill con = new ConnectionUtill();
 		Connection c = con.getDbconnection();

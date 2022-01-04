@@ -1,4 +1,4 @@
-package com.Dao;
+package com.pizza.dao;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -8,14 +8,15 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.Interface.Orderinterface;
-import com.model.Order;
-import com.model.Product;
-import com.model.User;
+import com.pizza.Interface.OrderDao;
+import com.pizza.model.Order;
+import com.pizza.model.Product;
+import com.pizza.model.User;
 //import com.pizzahut.dao.ConnectionUtill;
 //import com.dao.Productdao;
+import com.pizza.utill.ConnectionUtill;
 
-public class Orderdao implements Orderinterface{
+public class OrderDaoImpl implements OrderDao{
 	public List<Order> showorder() {
 		List<Order> orderList = new ArrayList<Order>();
 		String orderlist = "select * from orders";
@@ -26,8 +27,8 @@ public class Orderdao implements Orderinterface{
 		try {
 			stmt = c.createStatement();
 			ResultSet rs = stmt.executeQuery(orderlist);
-			Userdao userdao = new Userdao();
-			Productdao productdao = new Productdao();
+			UserDaoImpl userdao = new UserDaoImpl();
+			ProductDaoImpl productdao = new ProductDaoImpl();
 			while (rs.next()) {
 				Order orders = new Order();
 				User user = userdao.findid(rs.getInt(2));
@@ -37,10 +38,11 @@ public class Orderdao implements Orderinterface{
 			}
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
-			e.printStackTrace();
+			e.printStackTrace();  
 		}
 		return orderList;
 	}
+	
 	public int orderproduct(Order orders) {
 		ConnectionUtill con = new ConnectionUtill();
 		Connection c = con.getDbconnection();
@@ -49,9 +51,9 @@ public class Orderdao implements Orderinterface{
 		int order1 = 0;
 		try {
 			pstmt = c.prepareStatement(query);
-			Userdao userdao = new Userdao();
+			UserDaoImpl userdao = new UserDaoImpl();
 			int userid = userdao.finduserid(orders.getUser());
-			Productdao productdao = new Productdao();
+			ProductDaoImpl productdao = new ProductDaoImpl();
 			int proId = productdao.findProductId(orders.getProduct());
 			pstmt.setInt(1, userid);
 			pstmt.setInt(2, proId);
@@ -66,7 +68,7 @@ public class Orderdao implements Orderinterface{
 		}
 		return order1;
 	}
-
+	
 	public int delete(int deleteid) {
 		ConnectionUtill con = new ConnectionUtill();
 		Connection c = con.getDbconnection();
@@ -77,8 +79,6 @@ public class Orderdao implements Orderinterface{
 		try {
 			pstmt = c.prepareStatement(deleteQuery);
 			pstmt.setInt(1, deleteid);
-
-//		pstmt.setString(1, produce2.getProductname());	
 			prod1d = pstmt.executeUpdate();
 			System.out.println("delete");
 		} catch (SQLException e) {

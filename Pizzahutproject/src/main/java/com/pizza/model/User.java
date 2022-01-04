@@ -1,8 +1,9 @@
-package com.model;
+package com.pizza.model;
 
 import java.util.Objects;
 
 public class User {
+	private int userid;
 	private String username;
 	private long phonenumber;
 	private String email;
@@ -10,6 +11,14 @@ public class User {
 	
 	private Double wallet;
 	private String password;
+	
+	
+	public int getUserid() {
+		return userid;
+	}
+	public void setUserid(int userid) {
+		this.userid = userid;
+	}
 	public String getUsername() {
 		return username;
 	}
@@ -59,6 +68,11 @@ public class User {
 		super();
 		// TODO Auto-generated constructor stub
 	}
+	public User(int userid) {
+		// TODO Auto-generated constructor stub
+		this.userid=userid;
+	}
+	
 	@Override
 	public String toString() {
 		return "User [username=" + username + ", phonenumber=" + phonenumber + ", email=" + email + ", address="

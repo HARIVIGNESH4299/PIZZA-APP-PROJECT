@@ -1,4 +1,4 @@
-package com.Dao;
+package com.pizza.dao;
 
 import java.sql.Statement;
 import java.sql.Connection;
@@ -8,27 +8,24 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.model.Cart;
-import com.model.Order;
-import com.model.Product;
-import com.model.User;
-import com.Interface.Cartinterface;
-//import com.dao.ConnectionUtill;
-//import com.dao.Orderdao;
-//import com.dao.Productdao;
+import com.pizza.Interface.CartDao;
+import com.pizza.model.Cart;
+import com.pizza.model.Order;
+import com.pizza.model.Product;
+import com.pizza.model.User;
+import com.pizza.utill.ConnectionUtill;
 
-public class Cartdao implements Cartinterface{
+public class CartDaoImpl implements CartDao{
 public  int insertCart(Cart carts) {
 			ConnectionUtill con = new ConnectionUtill();
 			Connection c = con.getDbconnection();
-		String cartQuery="insert into cart(user_id,product_id,quantity,total_prize) values (?,?,?,?)";
-	
+		String cartQuery="insert into cart(user_id,product_id,quantity,total_prize) values(?,?,?,?)";	
 		PreparedStatement pstmt = null;
 		int cart1=0;
 		try {
 			pstmt = c.prepareStatement(cartQuery);
-			Userdao userdao=new Userdao();
-			Productdao productdao=new Productdao();
+			UserDaoImpl userdao=new UserDaoImpl();
+			ProductDaoImpl productdao=new ProductDaoImpl();
 			int userid=userdao.finduserid(carts.getUser());
 			int proId=productdao.findProductId(carts.getProduct());
 			pstmt.setInt(1,userid);
@@ -43,7 +40,7 @@ public  int insertCart(Cart carts) {
 		}		
 		return cart1;	
 	}
-	
+
 public List<Cart> showcart(){
 	List<Cart> cartList = new ArrayList<Cart>();
 	String query="select * from cart";
@@ -53,9 +50,9 @@ public List<Cart> showcart(){
 	try {
 		 stmt=c.createStatement();
 		 ResultSet rs = stmt.executeQuery(query);
-			Userdao userdao=new Userdao();
-			Productdao productdao=new Productdao();
-			Orderdao orderdao = new Orderdao();
+			UserDaoImpl userdao=new UserDaoImpl();
+			ProductDaoImpl productdao=new ProductDaoImpl();
+			OrderDaoImpl orderdao = new OrderDaoImpl();
 			while (rs.next()) {
 				User user=userdao.findid(rs.getInt(2));
 				Product product=productdao.findid(rs.getInt(3));

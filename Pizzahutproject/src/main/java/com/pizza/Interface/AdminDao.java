@@ -1,8 +1,8 @@
-package com.Interface;
+package com.pizza.Interface;
 
-import com.model.Admin;
+import com.pizza.model.Admin;
 
-public interface Admininterface {
+public interface AdminDao {
 	public   Admin validateadmin(String email1, String pass);
 
 }
