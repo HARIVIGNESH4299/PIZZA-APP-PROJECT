@@ -1,3 +1,6 @@
+<%@page import="java.sql.ResultSet"%>
+<%@page import="com.pizza.dao.UserDaoImpl"%>
+<%@page import="com.pizza.model.User"%>
 <%@page import="com.pizza.model.Product"%>
 <%@page import="com.pizza.dao.ProductDaoImpl"%>
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
@@ -10,44 +13,54 @@
 <meta charset="ISO-8859-1">
 <title>Order</title>
 </head>
-<body align="center" >
-<form action="order">
-		<%  int proId=Integer.parseInt(request.getParameter("productId"));
-			ProductDaoImpl productdao=new ProductDaoImpl();
-			List<Product> productList=productdao.showProduct();		
-			int id=(int) session.getAttribute("user_id");
-			//int productid=(int) session.getAttribute("product_id");
-			for (int i = 0; i < productList.size(); i++) {
-		%>
-			<label for="UserId"><strong>UserID:</strong></label>
-            <input type="number" name="userid" id="id" list="users" value="<%=id %>" style="visiblity:hidden"><br><br>
-             
-            <label for="ProductId"><strong>ProductId:</strong></label>
-            <input type="number" name="productid" id="proid" list="productsid" value="<%=proId %>" style="visiblity:hidden"><br><br>
-   
-   
-            <label for="Quantity"><strong>Quantity:</strong></label>
-            <input type="number" name="quan" id="quantity" list="quantity" required><br><br>
+<body onmouseover="check()">
+<form action="order" align="center" >
+	<% 	
+	User user=(User) session.getAttribute("user");		
+	UserDaoImpl userdao=new UserDaoImpl();
+	int id=userdao.finduserid(user);
+	
+	ProductDaoImpl productdao=new ProductDaoImpl();	
+	List<Product> productList=productdao.showProduct();	
 
-
-            <label for="Price"><strong>Price:</strong></label>
-            <input type="number" name="pri" id="Price" list="pri" value="<%=productList.get(i).getPrice() %>" required><br><br>
-                        
-            <label for="Orderdate"><strong>OrderDate:</strong></label>
-            <input type="date" name="orderdate" id="odate" list="odate" placeholder="dd-mm-yyyy" value="" required><br><br><br>
-
-			<div>
-                <button type="submit">Order</button>&nbsp; &nbsp; &nbsp; &nbsp;
-                <button type="reset"><strong>Reset</strong></button>
-            </div>
-		</form>
-		<script>
+	String pname=request.getParameter("productname");
+	String psize=request.getParameter("productsize");
+	Product product=new Product(pname,psize,null);	
+	
+	ResultSet rs1=productdao.findProductId(product);
+	session.setAttribute("productid", product);		
+   if(rs1.next()) {	   
+    %>	
+    
+  	<div>
+  	<h3>order your product</h3>
+	
+		<label for="productid">product id :</label>
+		<input type="text" name="productid" value="<%=rs1.getInt(1) %>" readonly><br><br>
+		
+		<label for="name">quantity:</label>
+        <input type="text" name="qty" id="quantity" pattern="[1-9]{1}"><br><br> 
+        
+        <label for="price">price : </label>       
+        <input type="text" name="price" id="price"  readonly> <br><br>
+            
+        <button onclick="demo()">buy</button>
+        <button type="reset">RESET</button>   
+        <a href="Showproducts.jsp">BACK</a>   
+        </div>     
+ </form>     
+<script>
 function check(){
-var count=document.getElementById("quantity").value;
-console.log(count);
-document.getElementById("Price").value=<%=productList.get(i).getPrice()%>*count;
+	var count=document.getElementById("quantity").value;
+	var totalPrice=document.getElementById("price");
+	console.log(count)
+	totalPrice.value=count * <%=rs1.getDouble(2) %>;
+	console.log(totalPrice.value);	
 }
-<%} %>
 </script>
+  <%
+	  }%>
 </body>
 </html>
+
+

@@ -64,26 +64,6 @@ public class ProductDaoImpl implements ProductDao{
 		return i;
 	}
 	
-	
-//	public List<Product> ShowProduct(int productID) {
-//			List<Product> productsList = new ArrayList<Product>();
-//			String showQuery = "select * from products where product_id='"+productID+"'";
-//			ConnectionUtill con = new ConnectionUtill();
-//			Connection c = con.getDbconnection();
-//			Product products=null;
-//			try {
-//				Statement stmt = c.createStatement();
-//				ResultSet rs = stmt.executeQuery(showQuery);
-//				while (rs.next()) {
-//					products = new Product(rs.getInt(1),rs.getString(2), rs.getString(3), Double.parseDouble(rs.getString(4)));
-//					productsList.add(products);
-//				}
-//			} catch (SQLException e) {
-//				// TODO Auto-generated catch block
-//				e.printStackTrace();
-//			}
-//			return productsList;			
-//		}
 
 	
 	public  int updated(String productname, String size,Double price,int productid) {
@@ -128,27 +108,32 @@ public class ProductDaoImpl implements ProductDao{
 	}
 	return prod1d;
 }
+
 	
-	public  int findProductId(Product product) {
-		String query="select product_id from products where product_name=? and product_size=? ";
+	public  ResultSet findProductId(Product product) {
+		String query="select product_id,price from products where product_name=? and product_size=? ";
 		ConnectionUtill con = new ConnectionUtill();
 		Connection c = con.getDbconnection();
 		PreparedStatement pstmt=null;
 		int proId=0;
+		ResultSet rs=null;
 		try {
 			pstmt = c.prepareStatement(query);
 			pstmt.setString(1, product.getProductname());
 			pstmt.setString(2,product.getSize() );
-			ResultSet rs=pstmt.executeQuery();
-			while(rs.next()) {
-				proId=rs.getInt(1);
-			}	
+			 rs=pstmt.executeQuery();
+			
+//			while(rs.next()) {
+//				proId=rs.getInt(1);
+//			}	
 		} catch (SQLException e1) {
 			// TODO Auto-generated catch block
 			e1.printStackTrace();
 		}	
-		return proId;
+		return rs;
 	}
+
+
 
 	public  Product findProduct(String proname,String prosize) {
 		ConnectionUtill con = new ConnectionUtill();

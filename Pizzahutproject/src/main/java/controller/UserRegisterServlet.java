@@ -34,10 +34,10 @@ public class UserRegisterServlet extends HttpServlet{
 			String address=req.getParameter("address");
 			long phonenumber=Long.parseLong(req.getParameter("phonenumber"));
 			String password=req.getParameter("password");
-			User user=new User(firstname,phonenumber,email,address,null,password);
+		//	User user=new User(firstname,phonenumber,email,address,null,password);
+			User user=new User(firstname,phonenumber,email,address, 0, password,"");
 			UserDaoImpl userdao=new UserDaoImpl();
 			userdao.insert(user);
-			
 				resp.sendRedirect("Userlogin.jsp");
 		}
 }

@@ -9,7 +9,10 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import com.pizza.dao.CartDaoImpl;
+import com.pizza.dao.OrderDaoImpl;
+import com.pizza.dao.UserDaoImpl;
 import com.pizza.model.Cart;
+import com.pizza.model.Order;
 import com.pizza.model.Product;
 import com.pizza.model.User;
 @WebServlet("/cart")
@@ -40,15 +43,29 @@ public class Cartservlet extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
 		HttpSession session=request.getSession();
-		
-		User userid=(User) session.getAttribute("user_id");
-		String productname=(String) request.getAttribute("name");
-		Product productid=(Product) session.getAttribute("productid");
-		int quantity=Integer.parseInt(request.getParameter("qty"));
-		Double price=Double.parseDouble(request.getParameter("price").toString());
-		Cart cart=new Cart(userid,productid,quantity,price);
-		CartDaoImpl dao=new CartDaoImpl();
-		dao.insertCart(cart);
-	}
 
+		User user=(User) session.getAttribute("user");
+		System.out.println("user "+ user);		
+		
+		Product product=(Product) session.getAttribute("productid");
+		System.out.println("product "+product);		
+
+//		int quantity=Integer.parseInt(request.getParameter("qty"));
+//		System.out.println(quantity);
+//		
+//		Double productprice=Double.parseDouble(request.getParameter("price"));
+//		System.out.println(productprice);
+//		
+		CartDaoImpl dao=new CartDaoImpl();
+		Cart cart=new Cart(user,product,0,0.0);
+		int i=	dao.insertCart(cart);			
+		response.sendRedirect("Showproducts.jsp");
+//
+//		UserDaoImpl dao=new UserDaoImpl();
+//		dao.update(productprice,user.getEmail() );
+//				OrderDaoImpl orderdao=new OrderDaoImpl();
+//				Order order=new Order(user,product,quantity,productprice,null);
+//				int i=orderdao.orderproduct(order);
+						
+	}
 }

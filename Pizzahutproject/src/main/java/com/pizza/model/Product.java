@@ -43,9 +43,13 @@ public class Product {
 		this.price = price;
 	}
 	
-	public Product(int proid) {
+	
+	public Product() {
+		super();
 		// TODO Auto-generated constructor stub
-		this.productId=proid;
+	}
+	public Product(int productid2) {
+		// TODO Auto-generated constructor stub
 	}
 	@Override
 	public String toString() {

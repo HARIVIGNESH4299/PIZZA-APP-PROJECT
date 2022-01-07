@@ -44,7 +44,7 @@ public class UpdateproductServlet extends HttpServlet {
 		Product product=new Product(productname,productsize,productprice);
 		ProductDaoImpl dao=new ProductDaoImpl();
 		dao.updated(productname, productsize, productprice, productid);
-	
+			response.sendRedirect("AddDeleteUpdate.jsp");
 	}
 
 }

@@ -49,6 +49,8 @@ public class AddproductServlet extends HttpServlet {
 		Product product=new Product(productname,productsize,productprice);
 		ProductDaoImpl dao=new ProductDaoImpl();
 		dao.insertproduct(product);
+		response.sendRedirect("AddDeleteUpdate.jsp");
+
 //		int productid=dao.findProductId(product);
 //		HttpSession session=request.getSession();
 //		session.setAttribute("product_id", productid);	

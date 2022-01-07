@@ -35,6 +35,7 @@ public class OrderDaoImpl implements OrderDao{
 				Product product = productdao.findid(rs.getInt(3));
 				order = new Order(user, product, rs.getInt(4), rs.getDouble(5), rs.getDate(6));
 				orderList.add(order);
+				System.out.println(orderList);
 			}
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
@@ -46,7 +47,7 @@ public class OrderDaoImpl implements OrderDao{
 	public int orderproduct(Order orders) {
 		ConnectionUtill con = new ConnectionUtill();
 		Connection c = con.getDbconnection();
-		String query = "insert into orders(user_id,product_id,quantity,total_prize,order_date)values(?,?,?,?,?)";
+		String query = "insert into orders(user_id,product_id,quantity,total_prize,order_date)values(?,?,?,?,sysdate)";
 		PreparedStatement pstmt = null;
 		int order1 = 0;
 		try {
@@ -54,12 +55,13 @@ public class OrderDaoImpl implements OrderDao{
 			UserDaoImpl userdao = new UserDaoImpl();
 			int userid = userdao.finduserid(orders.getUser());
 			ProductDaoImpl productdao = new ProductDaoImpl();
-			int proId = productdao.findProductId(orders.getProduct());
+			ResultSet proId = productdao.findProductId(orders.getProduct());
+			if(proId.next())
 			pstmt.setInt(1, userid);
-			pstmt.setInt(2, proId);
+			pstmt.setInt(2, proId.getInt(1));
 			pstmt.setInt(3, orders.getQuantity());
-			pstmt.setDouble(4, orders.getProduct().getPrice() * orders.getQuantity());
-			pstmt.setDate(5, new java.sql.Date(orders.getOrderdate().getTime()));
+			pstmt.setDouble(4, orders.getPrice());
+
 			order1 = pstmt.executeUpdate();
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
@@ -108,4 +110,26 @@ public class OrderDaoImpl implements OrderDao{
 		return orderid;
 	}
 
+public ResultSet orderdetails(int id) {
+	ConnectionUtill con = new ConnectionUtill();
+	Connection c = con.getDbconnection();
+	String findid = "select * from order where user_id='" + id + "'";
+	Statement stmt = null;
+	Order orderid = null;
+	ResultSet rs=null;
+	try {
+		stmt = c.createStatement();
+		 rs = stmt.executeQuery(findid);
+		while (rs.next()) {
+			orderid = new Order();
+		}
+	} catch (SQLException e) {
+		// TODO Auto-generated catch block
+		e.printStackTrace();
+	}
+	return rs;
 }
+
+}
+
+

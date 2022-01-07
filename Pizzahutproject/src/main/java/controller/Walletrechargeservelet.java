@@ -10,57 +10,50 @@ import javax.servlet.http.HttpSession;
 
 import com.pizza.dao.UserDaoImpl;
 import com.pizza.model.User;
-
-@WebServlet("/Login")
-
+@WebServlet("/recharge")
 /**
- * Servlet implementation class Login
+ * Servlet implementation class Walletrechargeservelet
  */
-public class UserLoginServlet extends HttpServlet {
+public class Walletrechargeservelet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public UserLoginServlet() {
+    public Walletrechargeservelet() {
         super();
         // TODO Auto-generated constructor stub
     }
-    
+
 	/**
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
-		//response.getWriter().append("Served at: ").append(request.getContextPath());
 		doPost(request, response);
 	}
-	
-	/**HttpServletRequest
+
+	/**
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub		
+		// TODO Auto-generated method stub
+	//	doGet(request, response);
+		
+//		int userid=Integer.parseInt(request.getParameter("userid"));
+//		System.out.println(userid);
+		Double amount=Double.parseDouble(request.getParameter("recharge"));
+		System.out.println(amount);
 		HttpSession session=request.getSession();
-		
-		String email=request.getParameter("email");
-	//	session.setAttribute("useremail",email);
-		System.out.println(email);
-		String password=request.getParameter("password");
-		System.out.println(password);
-	//	User user=new User(email,0, "", "", 0, password,"");
-	//	System.out.println ("sevlet"+ user);
-		UserDaoImpl userdao=new UserDaoImpl();
-		User user = userdao.validateUser(email, password);	
-		session.setAttribute("user", user);	
-		System.out.println("userdetails"+user);	
-		
-		if(user.getType().equals("Admin")) {
-			response.sendRedirect("AddDeleteUpdate.jsp");
-		}		
-		else if(user.getType().equals("user")) {
-			response.sendRedirect("Showproducts.jsp");			
-		}	
-
+		User user=(User)session.getAttribute("user");
+		user.setWallet(user.getWallet()+amount);
+		UserDaoImpl dao=new UserDaoImpl();
+     	int result=dao.recharge(user);
+     	if(result==0)
+     	{
+     		user.setWallet(user.getWallet()-amount);
+     	}
+     	
+		response.sendRedirect("Showproducts.jsp");
 	}
 }

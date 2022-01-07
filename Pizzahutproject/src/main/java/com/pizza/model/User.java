@@ -8,11 +8,16 @@ public class User {
 	private long phonenumber;
 	private String email;
 	private String address;
-	
 	private Double wallet;
 	private String password;
+	private String type;
 	
-	
+	public String getType() {
+		return type;
+	}
+	public void setType(String type) {
+		this.type = type;
+	}
 	public int getUserid() {
 		return userid;
 	}
@@ -55,29 +60,43 @@ public class User {
 	public void setPassword(String password) {
 		this.password = password;
 	}
-	public User(String username, long phonenumber, String email, String address, Double wallet, String password) {
+//	public User(String username, long phonenumber, String email, String address, Double wallet, String password) {
+//		super();
+//		this.username = username;
+//		this.phonenumber = phonenumber;
+//		this.email = email;
+//		this.address = address;
+//		this.wallet = wallet;
+//		this.password = password;
+//	}
+//	
+	public User() {
 		super();
+		// TODO Auto-generated constructor stub
+	}
+	
+	public User(int userid) {
+		// TODO Auto-generated constructor stub
+		this.userid=userid;
+	}
+	
+	public User(String username, long phonenumber, String email, String address,  String password,double wallet,String type) {
+		// TODO Auto-generated constructor stub
 		this.username = username;
 		this.phonenumber = phonenumber;
 		this.email = email;
 		this.address = address;
 		this.wallet = wallet;
 		this.password = password;
-	}
-	public User() {
-		super();
-		// TODO Auto-generated constructor stub
-	}
-	public User(int userid) {
-		// TODO Auto-generated constructor stub
-		this.userid=userid;
+		this.type=type;
 	}
 	
 	@Override
 	public String toString() {
-		return "User [username=" + username + ", phonenumber=" + phonenumber + ", email=" + email + ", address="
-				+ address + ", wallet=" + wallet + ", password=" + password + "]";
+		return "User [userid=" + userid + ", username=" + username + ", phonenumber=" + phonenumber + ", email=" + email
+				+ ", address=" + address + ", wallet=" + wallet + ", password=" + password + ", type=" + type + "]";
 	}
+
 	
 
 	

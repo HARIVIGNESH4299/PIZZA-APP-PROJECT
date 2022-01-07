@@ -15,6 +15,7 @@ import javax.servlet.http.HttpSession;
 
 import com.pizza.dao.OrderDaoImpl;
 import com.pizza.dao.ProductDaoImpl;
+import com.pizza.dao.UserDaoImpl;
 import com.pizza.model.Order;
 import com.pizza.model.Product;
 import com.pizza.model.User;
@@ -41,42 +42,37 @@ public class OrderServlet extends HttpServlet {
 		// TODO Auto-generated method stub
 		doPost(request, response);
 	}
-
+				
 	/**
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
+	                  
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
 		HttpSession session=request.getSession();
-//		int userid=(int) session.getAttribute("user_id");
-//		User user=new User(userid);
-//		System.out.println(user);
-//		System.out.println(userid);
-		User user =(User) session.getAttribute("user");
-		System.out.println(user);
-		int proid=Integer.parseInt(request.getParameter("productid"));
-		ProductDaoImpl dao=new ProductDaoImpl();
-		Product productid=dao.findid(proid);
-		//Product productid=new Product(proid);
-	//	System.out.println(productid.getProductId());
-		//System.out.println(proid);
-		System.out.println(productid);
-		int quantity=Integer.parseInt(request.getParameter("quan"));
-		System.out.println(quantity);
-		double price=Double.parseDouble(request.getParameter("pri"));
-		System.out.println(price);
-		SimpleDateFormat sdf=new SimpleDateFormat("dd-MM-yyyy");
-			Date orderDate = null;
-			String dateinString=request.getParameter("orderdate");
-			try {
-				orderDate = sdf.parse(dateinString);
-				System.out.println(orderDate);
+		
+		User user=(User) session.getAttribute("user");
+		//System.out.println("user "+ user);		
+		
+		Product product=(Product) session.getAttribute("productid");
+	//	System.out.println("product "+product);		
+
+		int quantity=Integer.parseInt(request.getParameter("qty"));
+		System.out.println(quantity);	
+		
+		Double productprice=Double.parseDouble(request.getParameter("price"));
+	//	System.out.println(productprice);
+		
+		UserDaoImpl dao=new UserDaoImpl();
+		
+		dao.update(productprice,user.getEmail());
 				OrderDaoImpl orderdao=new OrderDaoImpl();
-				Order order=new Order(user,productid,quantity,price,orderDate);
+				Order order=new Order(user,product,quantity,productprice,null);
 				int i=orderdao.orderproduct(order);
-			} catch (ParseException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-				}					
+				response.sendRedirect("Showproducts.jsp");
+						
 	}
 }
+
+
+
