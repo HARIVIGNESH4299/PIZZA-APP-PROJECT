@@ -6,12 +6,28 @@ import java.util.Objects;
 import com.pizza.model.Product;
 
 public class Order {
+		private int orderid; 
 		private User user;
 		private Product product;
 		private int quantity;
 		private Double price;
 		private Date orderdate;
+		private String status;
 		
+		
+		
+		public String getStatus() {
+			return status;
+		}
+		public void setStatus(String status) {
+			this.status = status;
+		}
+		public int getOrderid() {
+			return orderid;
+		}
+		public void setOrderid(int orderid) {
+			this.orderid = orderid;
+		}
 		public User getUser() {
 			return user;
 		}
@@ -54,6 +70,16 @@ public class Order {
 			super();
 			// TODO Auto-generated constructor stub
 		}
+		public Order(User user, Product product, int quantity, Double price, java.util.Date orderdate2,String status) {
+			super();
+			this.user = user;
+			this.product = product;
+			this.quantity = quantity;
+			this.price = price;
+			this.orderdate = orderdate2;
+			this.status=status;
+		}
+
 		@Override
 		public String toString() {
 			return "Order \nuser=" + user + ", \nproduct=" + product + ", \nquantity=" + quantity + ", price=" + price

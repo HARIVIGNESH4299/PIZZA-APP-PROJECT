@@ -17,11 +17,14 @@ import com.pizza.model.User;
 import com.pizza.utill.ConnectionUtill;
 
 public class OrderDaoImpl implements OrderDao{
-	public List<Order> showorder() {
+	public List<Order> showorder(User user) {
+		UserDaoImpl dao=new UserDaoImpl();
+		int userId=dao.finduserid(user);
 		List<Order> orderList = new ArrayList<Order>();
-		String orderlist = "select * from orders";
+		String orderlist = "select * from orders where user_id="+userId;
 		ConnectionUtill con = new ConnectionUtill();
 		Connection c = con.getDbconnection();
+
 		Statement stmt;
 		Order order = null;
 		try {
@@ -31,9 +34,9 @@ public class OrderDaoImpl implements OrderDao{
 			ProductDaoImpl productdao = new ProductDaoImpl();
 			while (rs.next()) {
 				Order orders = new Order();
-				User user = userdao.findid(rs.getInt(2));
+				User user1 = userdao.findid(rs.getInt(2));
 				Product product = productdao.findid(rs.getInt(3));
-				order = new Order(user, product, rs.getInt(4), rs.getDouble(5), rs.getDate(6));
+				order = new Order(user1, product, rs.getInt(4), rs.getDouble(5), rs.getDate(6),rs.getString(7));
 				orderList.add(order);
 				System.out.println(orderList);
 			}
@@ -47,26 +50,47 @@ public class OrderDaoImpl implements OrderDao{
 	public int orderproduct(Order orders) {
 		ConnectionUtill con = new ConnectionUtill();
 		Connection c = con.getDbconnection();
+		String query2="select wallet from users where user_id=?";
 		String query = "insert into orders(user_id,product_id,quantity,total_prize,order_date)values(?,?,?,?,sysdate)";
 		PreparedStatement pstmt = null;
+		System.out.println("hi");
+		double wallet=0;
 		int order1 = 0;
+		UserDaoImpl userdao = new UserDaoImpl();
+		int userid = userdao.finduserid(orders.getUser());
 		try {
-			pstmt = c.prepareStatement(query);
-			UserDaoImpl userdao = new UserDaoImpl();
-			int userid = userdao.finduserid(orders.getUser());
+			PreparedStatement stmt=c.prepareStatement(query2);		
+			stmt.setInt(1, userid);
+			ResultSet rs = stmt.executeQuery();			
+			if(rs.next()) {
+				wallet=rs.getDouble(1);			
+				System.out.println("wallet "+wallet);
+			}
+		} catch (SQLException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
+		if(wallet>orders.getPrice()) {	
+		try {
+			pstmt = c.prepareStatement(query);			
 			ProductDaoImpl productdao = new ProductDaoImpl();
 			ResultSet proId = productdao.findProductId(orders.getProduct());
-			if(proId.next())
+			System.out.println(" try 222222");
+			if(proId.next())   {			
 			pstmt.setInt(1, userid);
 			pstmt.setInt(2, proId.getInt(1));
 			pstmt.setInt(3, orders.getQuantity());
 			pstmt.setDouble(4, orders.getPrice());
-
+			System.out.println( "try2"+orders.getQuantity());
+			System.out.println(orders.getPrice());
 			order1 = pstmt.executeUpdate();
+			System.out.println("successfully ordered");
+			}
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 			System.out.println("sql error");
+		}
 		}
 		return order1;
 	}
@@ -128,6 +152,22 @@ public ResultSet orderdetails(int id) {
 		e.printStackTrace();
 	}
 	return rs;
+}
+public boolean ordercancel(int orderid) {
+	ConnectionUtill con = new ConnectionUtill();
+	Connection c = con.getDbconnection();
+	String cancel="update order set status='cancel' where order_id='"+orderid+"'";
+	Statement stmt;
+	boolean b=false;
+	try {
+		 stmt=c.createStatement();
+		b=stmt.executeUpdate(cancel) >0;
+	} catch (SQLException e) {
+		// TODO Auto-generated catch block
+		e.printStackTrace();
+		System.out.println("error in query");
+	}
+	return b;
 }
 
 }

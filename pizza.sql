@@ -8,8 +8,6 @@ create table users
     type varchar2(32) default 'user',
     wallet int default 5000,
     password varchar2(32) not null); 
-
-
 commit;
 
 select * from users;
@@ -17,9 +15,9 @@ update users set wallet=wallet-260 where email='ram@gmail.com';
 select * from users where email='hari@gmail.com' and password='Hari@123';
 delete from users where user_id=63;
 rollback;
-select users.user_name from users where wallet='0';
+select *  from users ;
 
-drop table admins CASCADE CONSTRAINTS;
+drop table products CASCADE CONSTRAINTS;
 
 --admins table
 create table admins(
@@ -42,9 +40,9 @@ product_name varchar2(32) not null,
 product_size varchar2(32) not null,
 price int not null);  
 
-insert into products(product_name,product_size,price)values('tomato','medium',90);
+insert into products(product_name,product_size,price)values('onion','large',60);
 
-insert into products(product_name,product_size,price)values('onion','medium',90);
+insert into products(product_name,product_size,price)values('corn','large',60);
 
 commit;
 select *from products;
@@ -93,7 +91,7 @@ FOREIGN key(user_id) REFERENCES users(user_id));
 
 select * from cart;
 
-drop table cart CASCADE CONSTRAINTS;
+drop table orders CASCADE CONSTRAINTS;
 
 --employee
 create table employees
@@ -118,11 +116,17 @@ FOREIGN key (product_id) REFERENCES products(product_id),
 FOREIGN key(order_id) REFERENCES orders(order_id)); 
 select * from bills;
 desc users;
-drop table bills CASCADE CONSTRAINTS;
+select * from users where email='vicky@gmail.com' and password='Hari@123';
+drop table cart CASCADE CONSTRAINTS;
 update users set wallet=wallet-120 where email='vicky@gmail.com';
-select * from users;
+
 commit;
-update users set wallet=wallet+999 where user_id=2;
+
+select * from orders where user_id=22;
+
+update users set wallet=wallet-2200 where user_id=2;
+select * from orders  where user_id=3;
+select * from users;
 select * from admins;
 select * from products;
 select * from orders;

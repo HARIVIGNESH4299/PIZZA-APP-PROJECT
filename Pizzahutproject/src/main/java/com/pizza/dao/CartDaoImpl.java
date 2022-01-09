@@ -44,9 +44,11 @@ public class CartDaoImpl implements CartDao{
 	return cart1;	
 }
 
-public List<Cart> showcart(){
+public List<Cart> showcart(User user){
+	UserDaoImpl dao=new UserDaoImpl();
+	int userid=dao.finduserid(user);
 	List<Cart> cartList = new ArrayList<Cart>();
-	String query="select * from cart";
+	String query="select * from cart where user_id="+userid;
 	ConnectionUtill con = new ConnectionUtill();
 	Connection c = con.getDbconnection();
 	Statement stmt=null;
@@ -57,10 +59,12 @@ public List<Cart> showcart(){
 			ProductDaoImpl productdao=new ProductDaoImpl();
 			OrderDaoImpl orderdao = new OrderDaoImpl();
 			while (rs.next()) {
-				User user=userdao.findid(rs.getInt(2));
+				User user1=userdao.findid(rs.getInt(2));
 				Product product=productdao.findid(rs.getInt(3));
-				Cart cart=new Cart(user,product,rs.getInt(4),rs.getDouble(5));
-				cartList.add(cart);		
+				Cart cart=new Cart(user1,product,rs.getInt(4),rs.getDouble(5));
+				cartList.add(cart);	
+				System.out.println("cartlist"+cartList);
+				System.out.println("cart"+cart);
 			}
 	} catch (SQLException e) {
 		// TODO Auto-generated catch block

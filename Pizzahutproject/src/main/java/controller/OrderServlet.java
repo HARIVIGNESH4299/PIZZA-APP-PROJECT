@@ -45,14 +45,14 @@ public class OrderServlet extends HttpServlet {
 				
 	/**
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
-	 */
+	*/
 	                  
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
 		HttpSession session=request.getSession();
 		
 		User user=(User) session.getAttribute("user");
-		//System.out.println("user "+ user);		
+	//	System.out.println("user "+ user);		
 		
 		Product product=(Product) session.getAttribute("productid");
 	//	System.out.println("product "+product);		
@@ -61,16 +61,21 @@ public class OrderServlet extends HttpServlet {
 		System.out.println(quantity);	
 		
 		Double productprice=Double.parseDouble(request.getParameter("price"));
-	//	System.out.println(productprice);
+		System.out.println(productprice);
 		
 		UserDaoImpl dao=new UserDaoImpl();
 		
 		dao.update(productprice,user.getEmail());
 				OrderDaoImpl orderdao=new OrderDaoImpl();
 				Order order=new Order(user,product,quantity,productprice,null);
+				System.out.println(order);
 				int i=orderdao.orderproduct(order);
-				response.sendRedirect("Showproducts.jsp");
-						
+				if(i>0) {
+					response.sendRedirect("Showproducts.jsp");
+				}
+				else {
+					response.sendRedirect("Order.jsp");
+				}				
 	}
 }
 

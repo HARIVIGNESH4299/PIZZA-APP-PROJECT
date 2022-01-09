@@ -35,7 +35,7 @@ public class UserRegisterServlet extends HttpServlet{
 			long phonenumber=Long.parseLong(req.getParameter("phonenumber"));
 			String password=req.getParameter("password");
 		//	User user=new User(firstname,phonenumber,email,address,null,password);
-			User user=new User(firstname,phonenumber,email,address, 0, password,"");
+			User user=new User(firstname,phonenumber,email,address, password, 0,"");
 			UserDaoImpl userdao=new UserDaoImpl();
 			userdao.insert(user);
 				resp.sendRedirect("Userlogin.jsp");

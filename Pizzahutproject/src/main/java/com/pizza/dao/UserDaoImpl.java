@@ -239,6 +239,29 @@ public class UserDaoImpl implements  UserDao{
 		return userid;
 	}
 	
+	public  int updateduser(String name, String email,long pnumber,String address,String password,int userid) {
+		ConnectionUtill con = new ConnectionUtill();
+		Connection c = con.getDbconnection();	
+		String updateQuery="update users set user_name=?,email=?,phonenumber=?,address=?,password where user_id=?";
+		int prodid=0;
+		try {
+			PreparedStatement pstmt= c.prepareStatement(updateQuery);	
+			pstmt.setString(1,name);
+		     pstmt.setString(2,email);
+		     pstmt.setLong(3, pnumber);
+		    pstmt.setString(4,address);	
+		    pstmt.setString(5, password);
+		     pstmt.setInt(6 ,userid);
+			    prodid = pstmt.executeUpdate();
+			     System.out.println("updated");
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			System.out.println("error in query");
+		}
+		return prodid;	
+	}
+	
 	public  String findemail(User user) {
 		String query="select email from users where user_id=?";
 		ConnectionUtill con = new ConnectionUtill();
@@ -260,7 +283,24 @@ public class UserDaoImpl implements  UserDao{
 		}
 		return useremail;		
 	}
-
+public boolean refund(User user,double price) {
+	ConnectionUtill con = new ConnectionUtill();
+	Connection c = con.getDbconnection();
+	UserDaoImpl dao=new UserDaoImpl();
+	int userid=dao.finduserid(user);
+	String query="update users set wallet='"+(user.getWallet() + price) +"'where user_id='" +userid+"'";
+	PreparedStatement pstmt;
+	boolean flag=false;
+	try {
+		pstmt = c.prepareStatement(query);
+		flag=pstmt.executeUpdate(query) >0;
+			
+	} catch (SQLException e1) {
+		// TODO Auto-generated catch block
+		e1.printStackTrace();
+	System.out.println("error in query ");
+}
+return flag;	
 }
 
-
+}

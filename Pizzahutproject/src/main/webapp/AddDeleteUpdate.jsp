@@ -8,43 +8,80 @@
 <html>
 <head>
 <meta charset="ISO-8859-1">
-<title>Insert title here</title>
-</head>
-<body>
-<form align="center">
+<title>AddUpdateDelete</title>
+<style>
+		.admin{
+				background-image: url("Images/sky.jpg");
+  				 background-repeat: no-repeat;
+				 background-attachment: fixed;
+ 				 background-size: cover;
+		}
+			  ul {
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+  overflow: hidden;
+  background-color: #333;
+}
 
-		<table>
+li {
+  float: left;
+}
+
+li a {
+  display: block;
+  color: white;
+  text-align: center;
+  padding: 14px 16px;
+  text-decoration: none;
+}
+
+li a:hover:not(.active) {
+  background-color: #111;
+}
+
+.active {
+  background-color: #04AA6D;
+}
+</style>
+</head>
+<body class="admin"> 
+<center><h3>Admin</h3>
+</center>
+<ul>
+<li><a href="AddDeleteUpdate.jsp">Home</a></li>
+ <li style="float:right"><a href="Userlogin.jsp">Logout</a></li>
+</ul><br><br><br><br>
+<form align="center">
+		<table align="center">
 			<tr>	
 		<th>product id</th>	
 		<th>product name</th>
 		<th>product size</th>
-		<th>product price</th>		
-		</tr>
-		    
+		<th>product price</th>
+		<th>DeleteProducts</th>	
+		<th>UpdateProducts</th>
+		</tr>		    
 		<%
 		ProductDaoImpl dao=new ProductDaoImpl();
 		List<Product> list=dao.showProduct();
 		for(int i=0;i<list.size();i++){
 			Product product=list.get(i);
 		ResultSet rs=dao.findProductId(product);
-		
-		if(rs.next()){%>
-		
+		if(rs.next()){%>		
 		<tr>
 		<td><%= rs.getInt(1)%></td>		
 		<td><%= product.getProductname()%></td>
 		<td><%=product.getSize()%></td>
-		<td><%=product.getPrice() %></td>		
-		
-		<%// session.setAttribute("productid",product.getProductId()); 
-	    	 session.setAttribute("productprice",product.getPrice());%>		
-		
+		<td><%=product.getPrice() %></td>				
+		<td><a href="Deleteproduct.jsp?">DELETE </a></td>
+		<td><a href="Updateproduct.jsp">UPDATE </a></td>
+
 		<% }} %>	
 		</tr>	
-		</table>
-			<a href="Addproduct.jsp"><h3>ADD PRODUCTS</h3></a>
-			<a href="Deleteproduct.jsp"><h3>DELECT PRODUCT</h3></a>
-			<a href="Updateproduct.jsp"><h3>UPDATE PRODUCT</h3></a>
+		</table><br><br><br><br><br><br>
+					<a href="Addproduct.jsp">Add Product </a>
+			
 </form>
 </body>
 </html>

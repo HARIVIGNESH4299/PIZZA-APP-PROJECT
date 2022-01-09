@@ -1,18 +1,18 @@
-<%@page import="java.sql.ResultSet"%>
-<%@page import="com.pizza.dao.UserDaoImpl"%>
-<%@page import="com.pizza.model.User"%>
+<%@page import="com.pizza.dao.ProductDaoImpl"%>
+<%@page import="com.pizza.model.Product"%>
 <%@page import="java.util.List"%>
-<%@page import="com.pizza.dao.OrderDaoImpl"%>
-<%@page import="com.pizza.model.Order"%>
+<%@page import="com.pizza.dao.CartDaoImpl"%>
+<%@page import="com.pizza.model.User"%>
+<%@page import="com.pizza.model.Cart"%>
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
     pageEncoding="ISO-8859-1"%>
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="ISO-8859-1">
-<title>SHOWORDRS</title>
+<title>Showcart</title>
 <style type="text/css">
-th{
+	th{
              background-color: white;
              color: black;
             height: 60px;
@@ -28,12 +28,13 @@ th{
 table {
              position: absolute;
              left:125px;  
-             top:200px;      
+             top:200px;     
             width: 80%;
             border-collapse: collapse;           
             border-top: none;
         }
-           ul {
+
+          ul {
   list-style-type: none;
   margin: 0;
   padding: 0;
@@ -60,21 +61,24 @@ li a:hover:not(.active) {
 .active {
   background-color: #04AA6D;
 }
-.order{
+.cart{
 	 background-image: url("Images/showorder.jpg");
     background-repeat: no-repeat;
   background-attachment: fixed;
   background-size: cover;
 }
+
 </style>
 </head>
-<body align="center" class="order">
+<body align="center" class="cart">
 <table align="center">
-<h1>MyOrders</h1>
+
+			<h1><b>MyCart<b></b></h1>
 <ul>  
+
 <li><a href="Showproducts.jsp">Home</a></li>
   <li> <a href="Showorder.jsp">MyOrders</a></li>
-  <li><a href="showcart.jsp">Mycart</a></li>
+  <li><a href="showcart.jsp">Mycart</a></li>  
   <li> <a href="Userdetails.jsp">Account</a></li>
   <li><a href="Walletrecharge.jsp">RechargeWallet</a></li>
   <li style="float:right"><a href="Userlogin.jsp">Logout</a></li>
@@ -84,31 +88,32 @@ li a:hover:not(.active) {
 		<th>product name</th>
 		<th>product size</th>
 		<th>product price</th>
-		<th> quantity</th>
-		<th>date</th>
-		<th>status</th>
-		<th>Cancel Order</th>
-		</tr>		
-		<% 
-		User user=(User) session.getAttribute("user");				
-		Order order=new Order();
-		OrderDaoImpl dao=new OrderDaoImpl();
-		List<Order> orderlist=dao.showorder(user);
-		for(int i=0;i<orderlist.size();i++) {
-		order=orderlist.get(i);
-		%>	
-	<tr>		
-		<td><%=order.getProduct().getProductname() %></td>
-		<td><%=order.getProduct().getSize() %></td>
-		<td><%=order.getPrice() %></td>
-		<td><%=order.getQuantity() %></td>
-		<td><%=order.getOrderdate() %></td>	
-		<td><%=order.getStatus() %></td>
-		<td><a href="Cancelorder.jsp">cancel</a></td>	
-	</tr>	
-<%} %>
+		<th>Order</th>
+		</tr>	
 
-	</table>
-		<a href="Showproducts.jsp">Back</a>
- </body>
+<%		Product product=new Product();
+		Product productdetails=(Product) session.getAttribute("product");
+		 ProductDaoImpl dao1=new ProductDaoImpl();
+		 List<Product> list1=dao1.showProduct();
+		 for(int j=0;j<list1.size();j++){
+		 	 product=list1.get(j);		
+		 }
+		User user=(User) session.getAttribute("user");	
+		Cart cart=new Cart();
+		CartDaoImpl dao=new CartDaoImpl();
+		List<Cart> list=dao.showcart(user);
+		for(int i=0;i<list.size();i++){
+		cart=list.get(i);	
+		%>		
+		<tr>
+		<td><%=cart.getProduct().getProductname()%></td>
+		<td><%=cart.getProduct().getSize() %></td>
+		<td><%=cart.getProduct().getPrice()%></td>		
+		<td><a href="Order.jsp?productname=<%=product.getProductname()%>&productsize=<%=product.getSize()%>&productprice=<%=product.getPrice()%>">order</a><br><br><br><br>
+		</td>
+		</tr>		
+	<% } %>
+</table>
+
+</body>
 </html>
