@@ -1,5 +1,7 @@
 # PIZZA-APP-PROJECT
 
+![This is an image](https://wallpaperaccess.com/full/866645.jpg)
+
 ### Features 
 
 * Add new pizzas
