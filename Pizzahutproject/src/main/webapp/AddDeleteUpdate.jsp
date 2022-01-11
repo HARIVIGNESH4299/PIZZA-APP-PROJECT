@@ -10,12 +10,7 @@
 <meta charset="ISO-8859-1">
 <title>AddUpdateDelete</title>
 <style>
-		.admin{
-				background-image: url("Images/sky.jpg");
-  				 background-repeat: no-repeat;
-				 background-attachment: fixed;
- 				 background-size: cover;
-		}
+
 			  ul {
   list-style-type: none;
   margin: 0;
@@ -43,25 +38,52 @@ li a:hover:not(.active) {
 .active {
   background-color: #04AA6D;
 }
+	th{
+             background-color: white;
+             color: black;
+            height: 60px;
+            border: 1px solid black;
+        }
+
+        td {
+        height:20px;
+            text-align: center;
+            border: 1px solid black;
+        }
+        
+table {
+             position: absolute;
+             left:125px;  
+             top:200px;     
+            width: 80%;
+            border-collapse: collapse;           
+            border-top: none;
+        }
+
 </style>
 </head>
 <body class="admin"> 
-<center><h3>Admin</h3>
+<center>
+<h3>Admin</h3>
 </center>
 <ul>
 <li><a href="AddDeleteUpdate.jsp">Home</a></li>
  <li style="float:right"><a href="Userlogin.jsp">Logout</a></li>
 </ul><br><br><br><br>
+<center>
+			<a href="Addproduct.jsp">Add Product </a>
+</center>
 <form align="center">
+
 		<table align="center">
-			<tr>	
+	<tr>	
 		<th>product id</th>	
 		<th>product name</th>
 		<th>product size</th>
 		<th>product price</th>
 		<th>DeleteProducts</th>	
 		<th>UpdateProducts</th>
-		</tr>		    
+	</tr>		    
 		<%
 		ProductDaoImpl dao=new ProductDaoImpl();
 		List<Product> list=dao.showProduct();
@@ -73,15 +95,15 @@ li a:hover:not(.active) {
 		<td><%= rs.getInt(1)%></td>		
 		<td><%= product.getProductname()%></td>
 		<td><%=product.getSize()%></td>
-		<td><%=product.getPrice() %></td>				
-		<td><a href="Deleteproduct.jsp?">DELETE </a></td>
-		<td><a href="Updateproduct.jsp">UPDATE </a></td>
+		<td><%=product.getPrice() %></td>	
+					
+		<td><a href="Deleteproduct.jsp?Pid=<%= rs.getInt(1)%>">DELETE </a></td>
+		<td><a href="Updateproduct.jsp?Pid=<%= rs.getInt(1)%>">UPDATE </a></td>
 
 		<% }} %>	
 		</tr>	
 		</table><br><br><br><br><br><br>
-					<a href="Addproduct.jsp">Add Product </a>
-			
-</form>
+		</form>
+	
 </body>
 </html>

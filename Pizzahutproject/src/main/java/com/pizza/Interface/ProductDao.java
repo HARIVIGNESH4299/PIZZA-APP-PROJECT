@@ -14,4 +14,5 @@ public interface ProductDao {
 	public  ResultSet findProductId(Product product);
 	public  Product findProduct(String proname,String prosize);
 	public Product findid(int id);
+	public List<Product> productsearch(String search);
 }

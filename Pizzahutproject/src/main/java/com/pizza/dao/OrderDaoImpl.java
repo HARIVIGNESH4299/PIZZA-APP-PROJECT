@@ -24,7 +24,6 @@ public class OrderDaoImpl implements OrderDao{
 		String orderlist = "select * from orders where user_id="+userId;
 		ConnectionUtill con = new ConnectionUtill();
 		Connection c = con.getDbconnection();
-
 		Statement stmt;
 		Order order = null;
 		try {
@@ -64,7 +63,6 @@ public class OrderDaoImpl implements OrderDao{
 			ResultSet rs = stmt.executeQuery();			
 			if(rs.next()) {
 				wallet=rs.getDouble(1);			
-				System.out.println("wallet "+wallet);
 			}
 		} catch (SQLException e1) {
 			// TODO Auto-generated catch block
@@ -75,14 +73,11 @@ public class OrderDaoImpl implements OrderDao{
 			pstmt = c.prepareStatement(query);			
 			ProductDaoImpl productdao = new ProductDaoImpl();
 			ResultSet proId = productdao.findProductId(orders.getProduct());
-			System.out.println(" try 222222");
 			if(proId.next())   {			
 			pstmt.setInt(1, userid);
 			pstmt.setInt(2, proId.getInt(1));
 			pstmt.setInt(3, orders.getQuantity());
 			pstmt.setDouble(4, orders.getPrice());
-			System.out.println( "try2"+orders.getQuantity());
-			System.out.println(orders.getPrice());
 			order1 = pstmt.executeUpdate();
 			System.out.println("successfully ordered");
 			}
@@ -153,10 +148,11 @@ public ResultSet orderdetails(int id) {
 	}
 	return rs;
 }
+
 public boolean ordercancel(int orderid) {
 	ConnectionUtill con = new ConnectionUtill();
 	Connection c = con.getDbconnection();
-	String cancel="update order set status='cancel' where order_id='"+orderid+"'";
+	String cancel="update order set status='canceled' where order_id='"+orderid+"'";
 	Statement stmt;
 	boolean b=false;
 	try {
@@ -168,8 +164,5 @@ public boolean ordercancel(int orderid) {
 		System.out.println("error in query");
 	}
 	return b;
+	}
 }
-
-}
-
-

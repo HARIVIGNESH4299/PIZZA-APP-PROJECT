@@ -62,10 +62,10 @@ li a:hover:not(.active) {
   background-color: #04AA6D;
 }
 .cart{
-	 background-image: url("Images/showorder.jpg");
-    background-repeat: no-repeat;
-  background-attachment: fixed;
-  background-size: cover;
+	background-image: url("Images/showorder.jpg");
+   	background-repeat: no-repeat;
+  	background-attachment: fixed;
+  	background-size: cover;
 }
 
 </style>
@@ -77,7 +77,7 @@ li a:hover:not(.active) {
 <ul>  
 
 <li><a href="Showproducts.jsp">Home</a></li>
-  <li> <a href="Showorder.jsp">MyOrders</a></li>
+  <li> <a href="Showorder.jsp?orderId=0">MyOrders</a></li>
   <li><a href="showcart.jsp">Mycart</a></li>  
   <li> <a href="Userdetails.jsp">Account</a></li>
   <li><a href="Walletrecharge.jsp">RechargeWallet</a></li>
@@ -89,7 +89,7 @@ li a:hover:not(.active) {
 		<th>product size</th>
 		<th>product price</th>
 		<th>Order</th>
-		</tr>	
+	</tr>	
 
 <%		Product product=new Product();
 		Product productdetails=(Product) session.getAttribute("product");
@@ -109,11 +109,9 @@ li a:hover:not(.active) {
 		<td><%=cart.getProduct().getProductname()%></td>
 		<td><%=cart.getProduct().getSize() %></td>
 		<td><%=cart.getProduct().getPrice()%></td>		
-		<td><a href="Order.jsp?productname=<%=product.getProductname()%>&productsize=<%=product.getSize()%>&productprice=<%=product.getPrice()%>">order</a><br><br><br><br>
-		</td>
+		<td><a href="Order.jsp?productname=<%=product.getProductname()%>&productsize=<%=product.getSize()%>&productprice=<%=product.getPrice()%>">order</a><br><br><br><br></td>
 		</tr>		
 	<% } %>
 </table>
-
 </body>
 </html>

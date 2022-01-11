@@ -63,9 +63,8 @@ li a:hover:not(.active) {
   <li style="float:right"><a href="Userlogin.jsp">Logout</a></li>
   <li><a href="Contect.jsp">Contact</a></li>
 </ul><br><br><br><br>
-	
 
-<form action="order" align="center" >
+<form action="order" align="center">
 	<% 	
 	User user=(User) session.getAttribute("user");		
 	UserDaoImpl userdao=new UserDaoImpl();
@@ -83,7 +82,7 @@ li a:hover:not(.active) {
     %>	  
   	<div>
   	<h3>order your product</h3>
-	
+  	
 		<label for="productid">product id :</label>
 		<input type="text" name="productid" value="<%=product.getProductname() %>" readonly><br><br>
 		
@@ -94,8 +93,7 @@ li a:hover:not(.active) {
         <input type="text" name="price" id="price"  readonly> <br><br>
             
         <button onclick="demo()">buy</button>  &nbsp &nbsp &nbsp &nbsp 
-        <button type="reset">RESET</button>   
-         
+        <button type="reset">RESET</button>            
         </div>     
  </form>     
 <script>

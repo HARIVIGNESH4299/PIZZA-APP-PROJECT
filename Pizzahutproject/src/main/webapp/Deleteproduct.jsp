@@ -40,30 +40,25 @@ li a:hover:not(.active) {
 </style>
 </head>
 <body style="background-color:orange;">
-<center><h3>ADD PRODUCTS</h3>
-</center>
+		<h3 align="center">Delete Product</h3>
 
 <ul>  
 <li><a href="AddDeleteUpdate.jsp">Home</a></li>
  <li style="float:right"><a href="Userlogin.jsp">Logout</a></li>
 </ul><br><br><br><br>
 <form align="center" action="deleteproduct">
-
-	<div>
-	
+	<div>	
+	<%int productid=Integer.parseInt(request.getParameter("Pid"));%>
 	 <label for="name">product id :</label>
-        <input type="text" name="id" ><br><br>            
+        <input type="text" name="id" value=<%=productid %> ><br><br>            
         <button onclick="demo()">DELETE</button>
         <button type="reset">RESET</button>
-     </div>   
-
-        
+    </div>        
 <script>
 function demo() {
 alert("product deleted successfully");
 }
 </script>
-
 </form>	
 </body>
 </html>

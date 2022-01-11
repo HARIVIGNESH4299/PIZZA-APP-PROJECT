@@ -97,18 +97,17 @@ li a:hover:not(.active) {
 		for(int i=0;i<orderlist.size();i++) {
 		order=orderlist.get(i);
 		%>	
-	<tr>		
+	<tr>
 		<td><%=order.getProduct().getProductname() %></td>
 		<td><%=order.getProduct().getSize() %></td>
 		<td><%=order.getPrice() %></td>
 		<td><%=order.getQuantity() %></td>
 		<td><%=order.getOrderdate() %></td>	
 		<td><%=order.getStatus() %></td>
-		<td><a href="Cancelorder.jsp">cancel</a></td>	
+		<td><a href="Cancelorder.jsp?orderId=<%=order.getOrderid()%>">cancel</a></td>	
 	</tr>	
-<%} %>
-
+<% } %>
 	</table>
-		<a href="Showproducts.jsp">Back</a>
+	<% int orderid=Integer.parseInt(request.getParameter("orderId"));%>
  </body>
 </html>

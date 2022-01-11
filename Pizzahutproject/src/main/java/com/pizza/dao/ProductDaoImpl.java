@@ -20,20 +20,16 @@ public class ProductDaoImpl implements ProductDao{
 	public List<Product> showProduct() {
 		List<Product> productsList = new ArrayList<Product>();
 		String prod = "select * from products";
-
 		ConnectionUtill con = new ConnectionUtill();
 		Connection c = con.getDbconnection();
 		Product products = null;
 		try {
-			System.out.println("list of product");
 			Statement stmt = c.createStatement();
 			ResultSet rs = stmt.executeQuery(prod);
 		//	System.out.println(rs.getString(2));
 			while (rs.next()) {
-				products = new Product(rs.getString(2), rs.getString(3), Double.parseDouble(rs.getString(4)));
-				
+				products = new Product(rs.getString(2), rs.getString(3), Double.parseDouble(rs.getString(4)));				
 				productsList.add(products);	
-				System.out.println(products);
 			}
 		} catch (SQLException e) {
 			System.out.println("error on query");
@@ -175,6 +171,44 @@ public class ProductDaoImpl implements ProductDao{
 		return productid1;
 	}
 
+	public ResultSet search(String search) {
+		ConnectionUtill con = new ConnectionUtill();
+		Connection c = con.getDbconnection();
+		String query = "select * from products where lower(product_name) like '"+search.toLowerCase()+"%'";
+		PreparedStatement pstmt;
+		ResultSet rs = null;
+		try {
+			 pstmt=c.prepareStatement(query);	
+			  rs=pstmt.executeQuery();
+			 return rs;
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}		
+		return rs;		
+	}
+public List<Product> productsearch(String search){
+	List<Product> productsList = new ArrayList<Product>();
+	String query="select * from products where product_name like '"+search+ "%'";
+	ConnectionUtill con = new ConnectionUtill();
+	Connection c = con.getDbconnection();
+	PreparedStatement pstmt;
+	ResultSet rs;
+	Product products;
+	System.out.println("hi guys");
+	System.out.println(query);
+	try {
+		 pstmt=c.prepareStatement(query);
+		 rs=pstmt.executeQuery();
+		 while (rs.next()) {
+				products = new Product(rs.getString(2), rs.getString(3), rs.getDouble(4));				
+				productsList.add(products);	
+				System.out.println("search"+productsList);
+		 }
+	} catch (SQLException e) {
+		// TODO Auto-generated catch block
+		e.printStackTrace();
+	}
+	return productsList;	
+	}
 }
-
-

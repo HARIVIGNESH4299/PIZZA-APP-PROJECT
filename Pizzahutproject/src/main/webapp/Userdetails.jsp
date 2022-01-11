@@ -48,6 +48,7 @@ li a:hover:not(.active) {
 <li><a href="Showproducts.jsp">Home</a></li>
   <li> <a href="Showorder.jsp">MyOrders</a></li>
   <li><a href="showcart.jsp">Mycart</a></li>  
+    <li><a href="Cancelorder.jsp">OrderCancel</a></li>
   <li> <a href="Userdetails.jsp">Account</a></li>
   <li><a href="Walletrecharge.jsp">RechargeWallet</a></li>
   <li><a href="Contect.jsp">Contact</a></li>

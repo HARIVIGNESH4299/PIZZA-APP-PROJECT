@@ -4,6 +4,8 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
     pageEncoding="ISO-8859-1"%>
     <%@page import="java.util.List"%>
+     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet">
+     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
         <%@page import=" com.pizza.dao.ProductDaoImpl"%>
         <%@page import="com.pizza.model.Product"%>  
 <!DOCTYPE html>
@@ -11,20 +13,18 @@
 <head>
 <meta charset="ISO-8859-1">
 <title>PRODUCTS</title>
-<style >
+<style>
 	th{
              background-color: black;
              color: white;
-            height: 60px;
-            
+            height: 60px;            
         }       
 table {
              position: absolute;
              left:125px;  
              top:125px;     
             width: 80%;
-            border-collapse: collapse;
-           
+            border-collapse: collapse;           
             border-top: none;
         }	
         a:hover{
@@ -33,8 +33,7 @@ table {
             border: 1px solid black;
         }  
   ul {
-  list-style-type: none;
-  
+  list-style-type: none;  
   margin: 0;
   padding: 0;
   overflow: hidden;
@@ -44,7 +43,6 @@ table {
 li {
   float: left;
 }
-
 li a {
   display: block;
   color: white;
@@ -61,18 +59,18 @@ li a:hover:not(.active) {
   background-color: #04AA6D;
 }
 .main{
-	 background-image: url("Images/main.gif");
+	background-image: url("Images/main.gif");
     background-repeat: no-repeat;
   	background-attachment: fixed;
   	background-size: cover;
 }
 .h1{
-
 }
     </style>
 </head>
-<body style="background-color:lightgray;" align="center" class="main"> 
-<h1 style="color:white;">List Of Products</h1>
+<body style="background-color:lightgreen;" align="center" class="main"> 
+<h1 style="color:white;" align="center"><img src="Images\logopizza.png" width="150px" height="100px">PizzaHut</h1>
+
 <% 
 	Product product=new Product();
 	User user=new User();
@@ -82,14 +80,16 @@ li a:hover:not(.active) {
 %>
 <ul>  
 <li><a href="Showproducts.jsp">Home</a></li>
-  <li> <a href="Showorder.jsp">MyOrders</a></li>
+  <li> <a href="Showorder.jsp?orderId=0">MyOrders</a></li>
   <li><a href="showcart.jsp">Mycart</a></li>  
   <li> <a href="Userdetails.jsp">Account</a></li>
-  <li><a href="Walletrecharge.jsp">RechargeWallet</a></li>
+  <li><a href="Walletrecharge.jsp">RechargeWallet</a></li>   
   <li style="float:right"><a href="Userlogin.jsp">Logout</a></li>
   <li><a href="Contect.jsp">Contact</a></li>
 </ul><br><br><br><br>
-		
+<form action="search.jsp" style="float:right" align="center">
+<input type="text" name="search"> <button class="btn btn-primary" type="submit">search</button>
+  </form> <br><br>
 <%  ProductDaoImpl dao=new ProductDaoImpl();
 List<Product> list=dao.showProduct();
 for(int i=0;i<list.size();i++){
@@ -99,13 +99,13 @@ for(int i=0;i<list.size();i++){
 		<%		
 		if(rs.next()) {
 		%>
-		<div>
-		<img src="<%= product.getProductname()%>.jpg" alt="img" width=200px height=100px><br>		
+		<div align="center">
+		<img src="<%= product.getProductname()%>.jpg" alt="img" width=300px height=175px><br>		
 		<b style="color:white;"><%= product.getProductname()%> </b>&nbsp &nbsp
 		<b style="color:white;"><%=product.getSize()%></b>   &nbsp &nbsp &nbsp
 		<b style="color:white;"><%=product.getPrice() %></b><br> <br>	&nbsp &nbsp 
-	 <button>  	<a href="Cart.jsp?productname=<%=product.getProductname()%>&productsize=<%=product.getSize()%>&productprice=<%=product.getPrice()%>">cart</a> </button>   &nbsp &nbsp &nbsp		
-	<button>	<a href="Order.jsp?productname=<%=product.getProductname()%>&productsize=<%=product.getSize()%>&productprice=<%=product.getPrice()%>">order</a>   </button><br><br><br><br>
+	  	<a href="Cart.jsp?productname=<%=product.getProductname()%>&productsize=<%=product.getSize()%>&productprice=<%=product.getPrice()%>"><button class="btn btn-primary"> cart</button></a>    &nbsp &nbsp &nbsp		
+		<a href="Order.jsp?productname=<%=product.getProductname()%>&productsize=<%=product.getSize()%>&productprice=<%=product.getPrice()%>"><button class="btn btn-primary">order</button></a>   <br><br><br><br>
 		</div>
 		<% }} %>				
 </body>

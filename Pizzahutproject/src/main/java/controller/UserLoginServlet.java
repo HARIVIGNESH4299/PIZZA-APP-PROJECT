@@ -9,6 +9,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import com.pizza.dao.UserDaoImpl;
+import com.pizza.exception.Lowbalance;
 import com.pizza.model.User;
 
 @WebServlet("/Login")
@@ -44,23 +45,31 @@ public class UserLoginServlet extends HttpServlet {
 		HttpSession session=request.getSession();
 		
 		String email=request.getParameter("email");
-	//	session.setAttribute("useremail",email);
 		System.out.println(email);
 		String password=request.getParameter("password");
 		System.out.println(password);
-	//	User user=new User(email,0, "", "", 0, password,"");
-	//	System.out.println ("sevlet"+ user);
 		UserDaoImpl userdao=new UserDaoImpl();
-		User user = userdao.validateUser(email, password);	
-		session.setAttribute("user", user);	
-		System.out.println("userdetails"+user);	
+		User user = userdao.validateUser(email, password);			
 		
+		session.setAttribute("user", user);	
+	
 		if(user.getType().equals("Admin")) {
 			response.sendRedirect("AddDeleteUpdate.jsp");
 		}		
 		else if(user.getType().equals("user")) {
 			response.sendRedirect("Showproducts.jsp");			
 		}	
-
+		else {
+				
+				try {
+					throw new Lowbalance();	
+				}
+				catch(Lowbalance lb) {
+					session.setAttribute("notfound" , lb.getMessage());
+					response.sendRedirect("Userlogin.jsp");	
+				}
+		}
+		
+		
 	}
 }

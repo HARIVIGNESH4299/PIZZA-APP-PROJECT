@@ -59,8 +59,7 @@ li a:hover:not(.active) {
   <li> <a href="Userdetails.jsp">Account</a></li>
   <li><a href="Walletrecharge.jsp">RechargeWallet</a></li>
   <li style="float:right"><a href="Userlogin.jsp">Logout</a></li>
-    <li><a href="Contect.jsp">Contact</a></li>
-  
+  <li><a href="Contect.jsp">Contact</a></li>
 </ul><br><br><br><br>
 
 <%		User user=(User) session.getAttribute("user");
@@ -71,9 +70,7 @@ li a:hover:not(.active) {
 		<input type="text" name="userid" value="<%=user.getUsername()%>" readonly><br><br> 
  		<label for="wallet">amount</label>
  		<input type="number" name="recharge" pattern="[0-9]{}"><br><br>
- 		<button  type="submit">UPDATE</button>
- 		
- 		 
+ 		<button  type="submit">UPDATE</button> 		 
  </form>
 </body>
 </html>

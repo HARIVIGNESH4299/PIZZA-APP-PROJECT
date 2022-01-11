@@ -45,10 +45,12 @@ li a:hover:not(.active) {
 
   <li style="float:right"><a href="Userlogin.jsp">Logout</a></li>
 </ul><br><br><br><br>
+	<%int productid=Integer.parseInt(request.getParameter("Pid"));%>
+
 <form align="center" action="updateproduct">
 		<h3>UPDATE THE PRODUCTS</h3>		
 		<label for="name">product id :</label>
-        <input type="text" name="id" required><br><br>      
+        <input type="text" name="id" value="<%=productid %>" readonly><br><br>      
         <label for="name">product name :</label>
         <input type="text" name="name"><br><br>
         <label for="name">product size :</label>

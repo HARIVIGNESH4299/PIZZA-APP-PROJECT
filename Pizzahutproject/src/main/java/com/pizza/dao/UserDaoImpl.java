@@ -99,7 +99,6 @@ public class UserDaoImpl implements  UserDao{
 		return well;	
 	}
 	
-	
 	public  int recharge(User user) {
 		ConnectionUtill con = new ConnectionUtill();
 		Connection c = con.getDbconnection();	
