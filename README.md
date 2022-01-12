@@ -37,5 +37,6 @@
   * Add pizzas
   * Delete Pizzas
   * Update Pizzas
-  
+  * Inactive Users
+  * Admin can see sales Details
   
