@@ -26,6 +26,7 @@
   
   * Add to cart
   * Order Pizza
+  * Cancel Order
   * Recharge Wallet
   * Search Pizzas
   * See all order and cart historys
